@@ -1,10 +1,11 @@
 const express = require('express');
 const cors = require('cors');
 const Query = require('./models/Query');
-require('./database');
 
-require("dotenv").config();
+require("dotenv").config({path:"../.env"});
 const port = process.env.PORT;
+
+require('./database');
 
 const app = express();
 app.use(cors());
@@ -44,4 +45,4 @@ app.put('/queries/:id', async (req, res) => {
     res.json(updated);
 });
 
-app.listen(port, () => console.log(`Server running on port {port}`));
+app.listen(port, () => console.log(`Server running on port ${port}`));
