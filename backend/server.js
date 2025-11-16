@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require("path");
 const Query = require('./models/Query');
 
 require("dotenv").config({path:"../.env"});
@@ -10,7 +11,8 @@ require('./database');
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.static('../frontend'));
+// Serve frontend files from "frontend" folder
+app.use(express.static(path.join(__dirname, "frontend")));
 
 // Create a query
 app.post('/queries', async (req, res) => {
@@ -43,6 +45,11 @@ app.put('/queries/:id', async (req, res) => {
     );
 
     res.json(updated);
+});
+
+// Fallback for frontend (for all unmatched routes)
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, "frontend", "index.html"));
 });
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
