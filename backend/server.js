@@ -3,7 +3,7 @@ const cors = require('cors');
 const path = require("path");
 const Query = require('./models/Query');
 
-require("dotenv").config({path:"../.env"});
+require("dotenv").config();
 const port = process.env.PORT;
 
 require('./database');
